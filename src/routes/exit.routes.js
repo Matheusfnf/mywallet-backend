@@ -6,7 +6,7 @@ const router = Router();
 
 router.use(authValidation);
 
-router.post("/saidas", createExit);
-router.get("/saidas", findExit);
+router.post("/entradas", createExit);
+router.get("/entradas", findExit);
 
 export default router;

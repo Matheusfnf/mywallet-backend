@@ -8,12 +8,15 @@ import { exitSchema } from "../models/exit.model.js";
 export async function createExit(req, res) {
   const { value, description } = req.body;
   const user = req.user;
+  const now = dayjs().format("DD/MM");
 
   try {
     const newExit = {
       value,
       description,
       user: user._id,
+      time: now,
+      type: "saida"
     };
 
     const { error } = exitSchema.validate(newExit, {
@@ -34,7 +37,7 @@ export async function createExit(req, res) {
 
 export async function findExit(req, res) {
   const { authorization } = req.headers;
-  const token = authorization?.replace("Bearer", "");
+  const token = authorization?.replace("Bearer", "").trim();
 
   try {
     const session = await sessionsCollection.findOne({ token });
